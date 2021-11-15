@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+	xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link rel="stylesheet"
+	    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+	    crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	
+	<title>Créer un questionnaire</title>
+
+	</head>
+	<body>
+
+	<div class="bg-dark">
+        	<div class="container">
+        		<div class="row">
+        			<nav class="col navbar navbar-expand-lg navbar-dark bg-dark">
+						<a class="navbar-brand" href="#">
+							<img src="/ressource/logo.png" width="45" height="45" alt="logo"/>
+							Online Survey
+						</a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            				<span class="navbar-toggler-icon"></span>
+						</button>
+						<div id="navbarContent" class="collapse navbar-collapse">
+							<ul class="navbar-nav ">
+			      				<li class="nav-item active">
+			      					<a class="nav-link" th:href="@{/homeUser/{id}(id=${idUser})}">Questionnaires</a>
+			      				</li>
+			     			    <li class="nav-item">
+			     			    	<a class="nav-link" th:href="@{/monCompte/{id}(id=${idUser})}">Mon compte</a>
+			     			    </li>
+    			 			</ul>
+    			 		</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+
+
+	<div class="container">
+		<div class="row my-3">
+			<div class="col">
+				<h2><font face="Times New Roman" color="#443c99">Ajout d'un nouvel questionnaire</font></h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+			<form method="post"
+				th:action="@{/saveQuestionnaireAdmin}" th:object="${questionnaire}">
+				<div class="form-group">
+					<label for="categoryInput">Catégorie : </label> 
+					<select th:field="*{id_categorie}" id="categoryInput" class="form-control">
+						<option th:value="1">Education</option>
+						<option th:value="2">Etude de marché</option>
+						<option th:value="3">Evènements</option>
+						<option th:value="4">Formation</option>
+						<option th:value="5">Quiz - QCM - Test</option>
+						<option th:value="6">Satisfaction</option>
+						<option th:value="7">Ressources humaines</option>
+						<option th:value="8">Santé</option>
+						<option th:value="9">Tourisme</option>
+					</select>
+					<small
+						id="categoryHelp" class="form-text text-muted">Merci de sélectionner la catégorie de votre questionnaire.</small>
+				</div>
+				
+				<div class="form-group">
+					<input
+						type="hidden" th:field="*{id_utilisateur}" class="form-control" id="QuestionText" 
+						th:value="${idUser}" placeholder="Saisir le nom"> 
+				</div>
+				
+				
+				
+				<div class="form-group">
+					<label for="PublicAvailability">Disponible pour le public : </label> 
+					<select th:field="*{est_public}" id="PublicAvailability" class="form-control">
+						<option th:value="1">Public</option>
+						<option th:value="0">Privé</option>
+					</select>
+					<small
+						id="categoryHelp" class="form-text text-muted">Merci de spécifier la cible de votre questionnaire.</small>
+				</div>
+				
+				<div class="form-group">
+					<label for="AllowSubmissions">Autoriser plusieurs soumissions : </label> 
+					<select th:field="*{autoriser_plusieurs_soumissions}" id="AllowSubmissions" class="form-control">
+						<option th:value="1">Oui</option>
+						<option th:value="0">Non</option>
+					</select>
+					<small
+						id="categoryHelp" class="form-text text-muted">Merci de spécifier combien de fois une personne peut remplir votre questionnaire.</small>
+				</div>
+				
+				<div class="form-group">
+				
+				
+					<label for="surveyNameInput">Nom : </label> 
+					<input
+						type="text" th:field="*{nom}" class="form-control" id="surveyNameInput"
+						aria-describedby="surveyNameHelp" placeholder="Saisir le nom"> <small
+						id="surveyNameHelp" class="form-text text-muted">Merci d'écrire le nom de votre questionnaire.</small>
+				</div>
+				
+				<div class="form-group">
+					<label for="surveyDescInput">Description : </label> 
+					<input
+						type="text" th:field="*{description}" class="form-control" id="surveyDescInput"
+						aria-describedby="surveyDescHelp" placeholder="Saisir la description du questionnaire"> <small
+						id="surveyDescHelp" class="form-text text-muted">Merci de décrire votre questionnaire.</small>
+				</div>
+				
+				<button type="submit" class="btn btn-primary">Créer</button>
+			</form>
+		</div>
+		
+		</div>
+		<br /> 
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+	xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+    crossorigin="anonymous">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<title>Description du questionnaire</title>
+	
+	<script type="text/javascript">
+		function checkDelete(){
+    		return confirm('Are you sure?');
+		}
+	</script>
+		
+	
+	</head>
+	<body>
+	
+	<div class="bg-dark">
+        	<div class="container">
+        		<div class="row">
+        			<nav class="col navbar navbar-expand-lg navbar-dark bg-dark">
+						<a class="navbar-brand" href="#">
+							<img src="/ressource/logo.png" width="45" height="45" alt="logo"/>
+							Online Survey
+						</a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            				<span class="navbar-toggler-icon"></span>
+						</button>
+						<div id="navbarContent" class="collapse navbar-collapse">
+							<ul class="navbar-nav ">
+			      				<li class="nav-item active">
+			      					<a class="nav-link" th:href="@{/homeVisitor}">Accueil</a>
+			      				</li>
+			     			    <li class="nav-item">
+			     			    	<a class="nav-link" th:href="@{/admin}">Se connecter</a>
+			     			    </li>
+			     			    <li class="nav-item">
+			     			    	<a class="nav-link" th:href="@{/creerCompte}">Créer un compte</a>
+			     			    </li>
+    			 			</ul>
+    			 		</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	
+	<div class="container pt-3">
+		
+		<h2 class="underlined"><font face="Times New Roman" color="#443c99">Questionnaire : </font></h2>
+	    <span><b>Catégorie : </b></span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	    						<span th:if="${questionnaire.id_categorie == 1}"> Education </span>
+								<span th:if="${questionnaire.id_categorie == 2}"> Etude de marché </span>
+								<span th:if="${questionnaire.id_categorie == 3}"> Evènements </span>
+								<span th:if="${questionnaire.id_categorie == 4}"> Formation </span>
+								<span th:if="${questionnaire.id_categorie == 5}"> Quiz - QCM - Test </span>
+								<span th:if="${questionnaire.id_categorie == 6}"> Satisfaction </span>
+								<span th:if="${questionnaire.id_categorie == 7}"> Ressources humaines </span>
+								<span th:if="${questionnaire.id_categorie == 8}"> Santé </span>
+								<span th:if="${questionnaire.id_categorie == 9}"> Tourisme </span><br/>
+								
+	    <span><b>Nom du questionnaire : </b></span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	    					<span th:text="${questionnaire.nom}"></span><br/>
+	    <span><b>Status : </b></span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+	    						<span th:if="${questionnaire.status == 'I'}"> Incomplet </span>
+								<span th:if="${questionnaire.status == 'P'}"> Publié </span><br/>
+	    <span><b>Description du questionnaire : </b></span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;
+	    						<span th:text="${questionnaire.description}"></span><br/>
+	    <span><b>Disponible pour le public : </b></span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;
+	    						<span th:if="${questionnaire.est_public == 0}"> Non </span>
+												 <span th:if="${questionnaire.est_public == 1}"> Oui </span><br/>
+	    <span><b>autoriser plusieurs soumissions : </b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;
+	    						<span th:if="${questionnaire.autoriser_plusieurs_soumissions == 0}"> Non </span>
+													   <span th:if="${questionnaire.autoriser_plusieurs_soumissions == 1}"> Oui </span><br/>
+										   
+		<span th:if="${questionnaire.status == 'I'}"><b><a style="float: right; color: black;" onclick="return checkDelete()" th:href="@{/deleteQuestionnaireUser/{id}(id=${questionnaire.id})}" th:if="${questionnaire.status == 'I'}"><i class="fa fa-trash" aria-hidden="true"></i>supprimer</a></b></span>
+		<span th:if="${questionnaire.status == 'I'}"><b><a style="float: right;margin-right:5px; color: black;"  th:href="@{/updateQuestionnaireUser/{id}(id=${questionnaire.id})}"><i class="fa fa-edit" aria-hidden="true"></i>mettre à jour</a></b></span>
+		<span th:if="${questionnaire.status == 'I'}"><b><a style="float: right;margin-right:5px; color: black;" th:if="${questionnaire.status == 'I' and questionnaire.id_utilisateur == 1}" th:href="@{/publishQuestionnaire/{id}(id=${questionnaire.id})}"><i class="material-icons" aria-hidden="true" style="font-size:15px">&#xe255;</i>publier</a></b></span>
+		<br />
+	  
+	</div>
+	<br />
+	<!--  
+	<div class="container pt-3">
+						<span th:if="${questionnairePages.empty}">Aucune page en base de données</span>
+						<span th:each="surveyPage: ${questionnairePages}">
+							<p style="background-color:Salmon; border-radius: 8px; padding: 5px;">
+								<span><b>Page</b></span>&nbsp;<b><span th:text="${surveyPage.page_ordre}"></span></b><b> : </b>&nbsp;<b><span th:text="${surveyPage.titre}"></span></b><br />
+							</p>	
+								
+							<span><b>&nbsp;Instructions : </b></span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span th:text="${surveyPage.instructions}"></span><br />
+							<span><b>&nbsp;Questions : </b></span>
+							<br />
+								<span th:each="surveyQuestion: ${toutesLesQuestions}">
+									
+									<span th:if="${surveyQuestion.id_questionnaire_definition_page == surveyPage.id_questionnaire_definition_page }"> 
+										<p style="background-color:powderblue;">
+										<b>&nbsp;<span th:text="${surveyQuestion.question_ordre}"></span>.&nbsp;<span th:text="${surveyQuestion.question_texte}"></span></b>
+										<br />
+										<span th:switch="${surveyQuestion.type}">
+									  			  <span th:case="'YES_NO_DROPDOWN'">
+													&emsp;<select name="cars" id="cars">
+													    <option value="yes">Oui</option>
+													    <option value="no">Non</option>
+													</select>
+													<br />
+												  </span>
+												  <span th:case="'SHORT_TEXT_INPUT'">
+														&emsp;<textarea id="w3review" name="w3review" rows="1" cols="50"></textarea>
+												  		<br />
+												  </span>
+												  
+												  <span th:case="'LONG_TEXT_INPUT'">
+														&emsp;<textarea id="w3review" name="w3review" rows="1" cols="150"></textarea>
+												  		<br />
+												  </span>
+												   
+												  <span th:case="'HUGE_TEXT_INPUT'">
+														&emsp;<textarea id="w3review" name="w3review" rows="5" cols="400"></textarea>
+												  		<br />
+												  </span> 
+												  <span th:case="'INTEGER_INPUT'">
+														&emsp;<input type="number" id="tentacles" name="tentacles" min="0"/>
+														<br />
+												  </span>
+												
+												  <span th:case="'DECIMAL_INPUT'">
+														&emsp;<input type="number" placeholder="1.00" min="0" step="0.1" />
+														<br />
+												  </span>  
+												  <span th:case="'DATE_INPUT'">
+														&emsp;<input type="date" id="start" name="trip-start"/>
+														<br />
+												  </span>
+												  <span th:case="'MULTIPLE_CHOICE_CHECKBOXES'">
+														<span th:each="surveyQuestionOption: ${toutesLesOptionsQuestions}" 
+														    th:if="${surveyQuestionOption.id_question == surveyQuestion.id_question}">
+														    &emsp;<input type="checkbox">
+  															<span th:text="${surveyQuestionOption.option_texte}"> </span>
+														    <br />
+														</span>
+												  </span>
+												  
+											<span th:case="'SINGLE_CHOICE_DROP_DOWN'">
+														
+												  &emsp;<select name="careee" id="caree">
+												  			<option disabled selected value> -- selectionner une option -- </option>
+														    <option th:each="surveyQuestionOption: ${toutesLesOptionsQuestions}" 
+														    th:if="${surveyQuestionOption.id_question == surveyQuestion.id_question}"
+														    th:value="${surveyQuestionOption.id_option}"
+														    th:utext="${surveyQuestionOption.option_texte}">
+														    </option>
+														 </select> 
+														<br />
+												  </span>
+											
+												    
+										   <span th:case="'SINGLE_CHOICE_RADIO_BUTTONS'">
+										    		
+												  	<span th:each="surveyQuestionOption: ${toutesLesOptionsQuestions}" 
+														    th:if="${surveyQuestionOption.id_question == surveyQuestion.id_question}">
+														    &emsp;<input type="radio">
+  															<span th:text="${surveyQuestionOption.option_texte}"></span>
+														   <br /> 
+													</span>
+													
+												  </span>
+											<span th:case="'SMILEY_FACES_RATING'">
+													&emsp;<input type="radio" id="age1" name="a" value="30"/>
+												    <label for="age1">extrêmement insatisfait<span style='font-size:25px;'>&nbsp;&#128544;</span></label><br />
+												    &emsp;<input type="radio" id="age2" name="a" value="60"/>
+												    <label for="age2">insatisfait<span style='font-size:25px;'>&nbsp;&#128530;</span></label><br />
+												    &emsp;<input type="radio" id="age3" name="a" value="100"/>
+												    <label for="age3">neutre<span style='font-size:25px;'>&nbsp;&#128528;</span></label><br />
+												    &emsp;<input type="radio" id="age4" name="a" value="100"/>
+												    <label for="age4">satisfait<span style='font-size:25px;'>&nbsp;&#128527;</span></label><br />
+												    &emsp;<input type="radio" id="age5" name="a" value="100"/>
+												    <label for="age5">extrêmement satisfait<span style='font-size:25px;'>&nbsp;&#128522;</span></label><br />
+												    
+												  </span>
+											
+										</span>
+										
+										
+										
+										
+										<br />
+										</p>
+										<br />
+									</span>
+									</span>
+									
+							<br />
+							<span th:if="${questionnaire.status == 'I'}"><hr width="1100px;" color="blue" size="10"></span>
+							<br />
+						</span>
+						<br />
+						 				
+		<span><a th:href="@{/fillSurvey/{id}(id=${questionnaire.id})}"><button class="btn btn-info">Valider</button></a></span>
+		<a style="float: right;margin-right:5px;" th:href="@{/homeVisitor}"><button class="btn btn-info">Retour</button></a>
+		
+	    <br />
+	  
+	</div>
+	<br />-->
+	<div class="container">
+		
+		<div class="row">
+			<div class="col">
+			<form method="post"
+				th:action="@{/fillSurvey}" th:object="${arrayListQuestion}">
+				<span th:each="surveyPage, numb : ${arrayListQuestion.listPageQuestionnaire}">
+					<p style="background-color:Salmon; border-radius: 8px; padding: 5px;">
+								<span><b>Page</b></span>&nbsp;<b><span th:text="${surveyPage.page_ordre}"></span></b><b> : </b>&nbsp;<b><span th:text="${surveyPage.titre}"></span></b><br />
+							</p>	
+								
+							<span><b>&nbsp;Instructions : </b></span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span th:text="${surveyPage.instructions}"></span><br />
+							<span><b>&nbsp;Questions : </b></span>
+							
+								<input
+									type="hidden" th:field="*{listPageQuestionnaire[__${numb.index}__].id_questionnaire_definition_page}" class="form-control" id="QuestionText" 
+									th:value="${surveyPage.id_questionnaire_definition_page}" placeholder="Saisir le nom"> 
+								<input
+									type="hidden" th:field="*{listPageQuestionnaire[__${numb.index}__].id_questionnaire_definition}" class="form-control" id="QuestionText" 
+									th:value="${surveyPage.id_questionnaire_definition}" placeholder="Saisir le nom"> 
+				
+				
+				<br />
+								<span th:each="surveyQuestion, stat : ${arrayListQuestion.listQuestions}">
+									<span th:if="${surveyQuestion.id_questionnaire_definition_page == surveyPage.id_questionnaire_definition_page }"> 
+										<p style="background-color:powderblue;">
+										<b>&nbsp;<span th:text="${surveyQuestion.question_ordre}"></span>.&nbsp;<span th:text="${surveyQuestion.question_texte}"></span></b>
+										<br />
+											<input
+												type="hidden" th:field="*{listQuestions[__${stat.index}__].id_question}" class="form-control" id="QuestionText" 
+												th:value="${surveyQuestion.id_question}" placeholder="Saisir le nom"> 
+										
+										<span th:switch="${surveyQuestion.type}">
+									  			  <span th:case="'YES_NO_DROPDOWN'">
+													&emsp;<select th:field="*{listQuestions[__${stat.index}__].indice}" name="cars" id="cars">
+													    <option th:value="'Y'">Oui</option>
+													    <option th:value="'N'">Non</option>
+													</select>
+													<br />
+												  </span>
+												  <span th:case="'SHORT_TEXT_INPUT'">
+														&emsp;<textarea th:field="*{listQuestions[__${stat.index}__].indice}" id="w3review" name="w3review" rows="1" cols="50"></textarea>
+												  		<br />
+												  </span>
+												  
+												  <span th:case="'LONG_TEXT_INPUT'">
+														&emsp;<textarea th:field="*{listQuestions[__${stat.index}__].indice}" id="w3review" name="w3review" rows="1" cols="150"></textarea>
+												  		<br />
+												  </span>
+												   
+												  <span th:case="'HUGE_TEXT_INPUT'">
+														&emsp;<textarea th:field="*{listQuestions[__${stat.index}__].indice}" id="w3review" name="w3review" rows="5" cols="150"></textarea>
+												  		<br />
+												  </span> 
+												  <span th:case="'INTEGER_INPUT'">
+														&emsp;<input th:field="*{listQuestions[__${stat.index}__].indice}" type="number" id="tentacles" name="tentacles" min="0"/>
+														<br />
+												  </span>
+												
+												  <span th:case="'DECIMAL_INPUT'">
+														&emsp;<input th:field="*{listQuestions[__${stat.index}__].indice}" type="number" placeholder="1.00" min="0" step="0.1" />
+														<br />
+												  </span>  
+												  <span th:case="'DATE_INPUT'">
+														&emsp;<input th:field="*{listQuestions[__${stat.index}__].indice}" type="date" id="start" name="trip-start"/>
+														<br />
+												  </span>
+												  <span th:case="'MULTIPLE_CHOICE_CHECKBOXES'">
+														<span th:each="surveyQuestionOption , statOption: ${arrayListQuestion.listQuestionOptions}" 
+														    th:if="${surveyQuestionOption.id_question == surveyQuestion.id_question}">
+														    &emsp;<input type="checkbox" th:field="*{listQuestionOptions[__${statOption.index}__].option_valeur}" th:value="${surveyQuestionOption.option_texte}">
+  															<span th:text="${surveyQuestionOption.option_texte}"> </span>
+  															
+																<input
+																	type="hidden" th:field="*{listQuestionOptions[__${statOption.index}__].id_option}" class="form-control" id="QuestionText" 
+																	th:value="${surveyQuestionOption.id_option}" placeholder="Saisir le nom"> 
+															
+														    <br />
+														</span>
+												  </span>
+												  
+											<span th:case="'SINGLE_CHOICE_DROP_DOWN'">
+														
+												  &emsp;<select th:field="*{listQuestions[__${stat.index}__].indice}" name="careee" id="caree">
+												  			<option value="" disabled="disabled" selected="selected"> -- selectionner une option -- </option>
+														    <option th:each="surveyQuestionOption: ${arrayListQuestion.listQuestionOptions}" 
+														    th:if="${surveyQuestionOption.id_question == surveyQuestion.id_question}"
+														    th:value="${surveyQuestionOption.option_texte}"
+														    th:utext="${surveyQuestionOption.option_texte}" >
+														    
+														    </option>
+														 </select> 
+														<br />
+												  </span>
+											
+												    
+										   <span th:case="'SINGLE_CHOICE_RADIO_BUTTONS'">
+										    		
+												  	<span th:each="surveyQuestionOption, statOption: ${arrayListQuestion.listQuestionOptions}" 
+														    th:if="${surveyQuestionOption.id_question == surveyQuestion.id_question}">
+														    &emsp;<input type="radio" name="one" th:field="*{listQuestionOptions[__${statOption.index}__].option_valeur}"  th:value="${surveyQuestionOption.option_texte}"/>
+  															<label th:text="${surveyQuestionOption.option_texte}"></label>
+  															
+																<input
+																	type="hidden" th:field="*{listQuestionOptions[__${statOption.index}__].id_option}" class="form-control" id="QuestionText" 
+																	th:value="${surveyQuestionOption.id_option}" placeholder="Saisir le nom"> 
+															
+														   <br /> 
+													</span>
+													
+												  </span>
+											<span th:case="'SMILEY_FACES_RATING'" >
+													&emsp;<input th:field="*{listQuestions[__${stat.index}__].indice}" type="radio" id="age1" name="a" value="extrêmement insatisfait"/>
+												    <label for="age1">extrêmement insatisfait<span style='font-size:25px;'>&nbsp;&#128544;</span></label><br />
+												    &emsp;<input th:field="*{listQuestions[__${stat.index}__].indice}" type="radio" id="age2" name="a" value="insatisfait"/>
+												    <label for="age2">insatisfait<span style='font-size:25px;'>&nbsp;&#128530;</span></label><br />
+												    &emsp;<input th:field="*{listQuestions[__${stat.index}__].indice}" type="radio" id="age3" name="a" value="neutre"/>
+												    <label for="age3">neutre<span style='font-size:25px;'>&nbsp;&#128528;</span></label><br />
+												    &emsp;<input th:field="*{listQuestions[__${stat.index}__].indice}" type="radio" id="age4" name="a" value="satisfait"/>
+												    <label for="age4">satisfait<span style='font-size:25px;'>&nbsp;&#128527;</span></label><br />
+												    &emsp;<input th:field="*{listQuestions[__${stat.index}__].indice}" type="radio" id="age5" name="a" value="extrêmement satisfait"/>
+												    <label for="age5">extrêmement satisfait<span style='font-size:25px;'>&nbsp;&#128522;</span></label><br />
+												    
+												  </span>
+											
+										</span>
+										
+										<br />
+										</p>
+									</span>
+									</span>
+							<br />
+					</span>
+						
+				<!--  
+				<div class="form-group">
+					<label for="categoryInput">Catégorie : </label> 
+					<select th:field="*{id_categorie}" id="categoryInput" class="form-control">
+						<option th:value="1">Education</option>
+						<option th:value="2">Etude de marché</option>
+						<option th:value="3">Evènements</option>
+					</select>
+					<small
+						id="categoryHelp" class="form-text text-muted">Merci de sélectionner la catégorie de votre questionnaire.</small>
+				</div>
+				
+				<div class="form-group">
+					<input
+						type="hidden" th:field="*{id_utilisateur}" class="form-control" id="QuestionText" 
+						th:value="${idUser}" placeholder="Saisir le nom"> 
+				</div>
+				
+				
+				
+				<div class="form-group">
+					<label for="PublicAvailability">Disponible pour le public : </label> 
+					<select th:field="*{est_public}" id="PublicAvailability" class="form-control">
+						<option th:value="1">Public</option>
+						<option th:value="0">Privé</option>
+					</select>
+					<small
+						id="categoryHelp" class="form-text text-muted">Merci de spécifier la cible de votre questionnaire.</small>
+				</div>
+				
+				<div class="form-group">
+					<label for="AllowSubmissions">Autoriser plusieurs soumissions : </label> 
+					<select th:field="*{autoriser_plusieurs_soumissions}" id="AllowSubmissions" class="form-control">
+						<option th:value="1">Oui</option>
+						<option th:value="0">Non</option>
+					</select>
+					<small
+						id="categoryHelp" class="form-text text-muted">Merci de spécifier combien de fois une personne peut remplir votre questionnaire.</small>
+				</div>
+				
+				<div class="form-group">
+				
+				
+					<label for="surveyNameInput">Nom : </label> 
+					<input
+						type="text" th:field="*{nom}" class="form-control" id="surveyNameInput"
+						aria-describedby="surveyNameHelp" placeholder="Saisir le nom"> <small
+						id="surveyNameHelp" class="form-text text-muted">Merci d'écrire le nom de votre questionnaire.</small>
+				</div>
+				
+				<div class="form-group">
+					<label for="surveyDescInput">Description : </label> 
+					<input
+						type="text" th:field="*{description}" class="form-control" id="surveyDescInput"
+						aria-describedby="surveyDescHelp" placeholder="Saisir la description du questionnaire"> <small
+						id="surveyDescHelp" class="form-text text-muted">Merci de décrire votre questionnaire.</small>
+				</div>-->
+				
+				<button type="submit" class="btn btn-primary">Valider</button>
+			</form>
+		</div>
+		
+		</div>
+		<a style="float: right;margin-right:5px;margin-bottom:5px;" th:href="@{/homeVisitor}"><button class="btn btn-info">Retour</button></a>
+		<br />
+	</div>
+	
+		<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	</body>
+</html>

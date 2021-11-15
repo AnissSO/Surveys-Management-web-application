@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+	xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link rel="stylesheet"
+	    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+	    crossorigin="anonymous">
+								
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	
+	<title>Créer une question</title>
+
+	</head>
+	<body>
+
+	<div class="bg-dark">
+        	<div class="container">
+        		<div class="row">
+        			<nav class="col navbar navbar-expand-lg navbar-dark bg-dark">
+						<a class="navbar-brand" href="#">
+							<img src="/ressource/logo.png" width="45" height="45" alt="logo"/>
+							Online Survey
+						</a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            				<span class="navbar-toggler-icon"></span>
+						</button>
+						<div id="navbarContent" class="collapse navbar-collapse">
+							<ul class="navbar-nav ">
+			      				<li class="nav-item active">
+			      					<a class="nav-link" href="#">Questionnaires</a>
+			      				</li>
+			     			    <li class="nav-item">
+			     			    	<a class="nav-link" href="#">Sécurité</a>
+			     			    </li>
+    			 			</ul>
+    			 		</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+
+
+	<div class="container">
+		<div class="row my-3">
+			<div class="col">
+				<h2><font face="Times New Roman" color="#443c99">Mise à jour des options de la question :</font></h2>
+			</div>
+		</div>
+		
+		<div class="row my-3">
+			<div class="col">
+					<label for="categoryShow"><b>Type de la question : </b></label>
+					<span th:if="${questionUpdateOptions.type == 'YES_NO_DROPDOWN'}"> Oui Non Liste déroulante </span>
+					<span th:if="${questionUpdateOptions.type == 'SHORT_TEXT_INPUT'}"> Saisie de texte court </span>
+					<span th:if="${questionUpdateOptions.type == 'LONG_TEXT_INPUT'}"> Saisie de texte long </span>
+					<span th:if="${questionUpdateOptions.type == 'HUGE_TEXT_INPUT'}"> Saisie de texte trop long </span>
+					<span th:if="${questionUpdateOptions.type == 'INTEGER_INPUT'}"> Saisie d'un entier </span>
+					<span th:if="${questionUpdateOptions.type == 'DECIMAL_INPUT'}"> Saisie d'un décimal </span>
+					<span th:if="${questionUpdateOptions.type == 'DATE_INPUT'}"> Saisie d'une date </span>
+					<span th:if="${questionUpdateOptions.type == 'SINGLE_CHOICE_DROP_DOWN'}"> Liste déroulante à choix unique </span>
+					<span th:if="${questionUpdateOptions.type == 'MULTIPLE_CHOICE_CHECKBOXES'}"> Cases à cocher à choix multiples </span>
+					<span th:if="${questionUpdateOptions.type == 'SINGLE_CHOICE_RADIO_BUTTONS'}"> Boutons radio à choix unique </span>
+					<span th:if="${questionUpdateOptions.type == 'SMILEY_FACES_RATING'}"> Visages souriants </span>
+					<span th:if="${questionUpdateOptions.type == 'IMAGE'}"> Image </span>
+					<span th:if="${questionUpdateOptions.type == 'VIDEO'}"> Video </span>
+					<span th:if="${questionUpdateOptions.type == 'FILE_UPLOAD'}"> Téléchargement de fichier </span>
+					<br />
+					<label for="NameShow"><b>Texte de la question : </b></label>
+					<span th:text="${questionUpdateOptions.question_texte}"> </span>
+					<br />
+					
+					
+			</div>
+		</div>
+		
+		<div class="row my-3">
+			<div class="col">
+				<h2><font face="Times New Roman" color="#443c99">Les options de la question :</font></h2>
+			</div>
+		</div>
+		
+		<!--  -->
+		<div class="row">		
+			<div class="col">
+			<!--  -->
+			<form method="post" th:action="@{/selectOptionsQuestion}"  th:object="${option}">	
+					
+				    <div class="form-group">
+						<label for="QuestionOption1">Option 1 : </label> 
+						<input
+							type="text" th:field="*{option1}" class="form-control" id="QuestionOption1" 
+							aria-describedby="QuestionOption1Help" placeholder="Saisir l'option 1"> <small
+							id="QuestionOption1Help" class="form-text text-muted">Merci d'écrire l'option 1 de la question.</small>
+					</div>
+					<div class="form-group">
+						<label for="QuestionOption2">Option 2 : </label> 
+						<input
+							type="text" th:field="*{option2}" class="form-control" id="QuestionOption2" 
+							aria-describedby="QuestionOption2Help" placeholder="Saisir l'option 2"> <small
+							id="QuestionOption2Help" class="form-text text-muted">Merci d'écrire l'option 2 de la question.</small>
+					</div>
+					<div class="form-group">
+						<label for="QuestionOption3">Option 3 : </label> 
+						<input
+							type="text" th:field="*{option3}" class="form-control" id="QuestionOption3" 
+							aria-describedby="QuestionOption3Help" placeholder="Saisir l'option 3"> <small
+							id="QuestionOption3Help" class="form-text text-muted">Merci d'écrire si nécessaire l'option 3 de la question.</small>
+					</div>
+					<div class="form-group">
+						<label for="QuestionOption4">Option 4 : </label> 
+						<input
+							type="text" th:field="*{option4}" class="form-control" id="QuestionOption4"
+							aria-describedby="QuestionOption4Help" placeholder="Saisir l'option 4"> <small
+							id="QuestionOption4Help" class="form-text text-muted">Merci d'écrire si nécessaire l'option 4 de la question.</small>
+					</div>
+					<div class="form-group">
+						<label for="QuestionOption5">Option 5 : </label> 
+						<input
+							type="text" th:field="*{option5}" class="form-control" id="QuestionOption5" 
+							aria-describedby="QuestionOption5Help" placeholder="Saisir l'option 5"> <small
+							id="QuestionOption5Help" class="form-text text-muted">Merci d'écrire l'option 5 de la question.</small>
+					</div>
+					<!--  -->
+					<div class="form-group">
+						<input
+							type="hidden" th:field="*{idQuest}" class="form-control" id="QuestionText" 
+							th:value="${idquesti}" > 
+					</div>
+					<!-- -->
+					<div class="form-group">
+						<label for="QuestionOption6">Option 6 : </label> 
+						<input
+							type="text" th:field="*{option6}" class="form-control" id="QuestionOption6"
+							aria-describedby="QuestionOption6Help" placeholder="Saisir l'option 6"> <small
+							id="QuestionOption6Help" class="form-text text-muted">Merci d'écrire l'option 6 de la question.</small>
+					</div> 
+					<button type="submit" class="btn btn-primary">Valider</button>
+					
+			  </form>
+
+		</div>
+		
+	</div>
+		<br /> 
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+</body>
+</html>
